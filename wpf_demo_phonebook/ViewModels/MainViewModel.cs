@@ -44,10 +44,10 @@ namespace wpf_demo_phonebook.ViewModels
         }
 
         public RelayCommand SearchContactCommand { get; set; }
-
+        public RelayCommand NewContactCommand { get; set; }
         public MainViewModel()
         {
-
+            //NewContactCommand = new RelayCommand(NewContact());
             SearchContactCommand = new RelayCommand(SearchContact);
             SelectedContact = PhoneBookBusiness.GetContactByID(1);
             GetAllContactsFromDataBase(); //Init Value sur les autres travaille
@@ -85,6 +85,15 @@ namespace wpf_demo_phonebook.ViewModels
                     MessageBox.Show("Unkonwn search method");
                     break;
             }
+        }
+
+        private void NewContact(object c)
+        {
+            ContactModel contact = new ContactModel();
+
+
+            //customerViewModel.Customers.Add(customer);
+            //customerViewModel.SelectedCustomer = customer;
         }
     }
 }

@@ -7,24 +7,64 @@
         mc:Ignorable="d"
         Title="MainWindow" MinHeight="300" Width="800">
     <DockPanel>
-        
-
-        <Grid Grid.Row="0" Grid.Column="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <StackPanel Margin="6" Orientation="Horizontal" x:Name="spHeader">
-                <TextBlock Text="Liste des clients" />
+        <DockPanel>
+        <StackPanel DockPanel.Dock="Top">
+            <Menu>
+                <MenuItem Header="_Fichier">
+                    <MenuItem Header="_Ouvrir..."/>
+                    <MenuItem Header="_Sauvegarder"/>
+                    <MenuItem Header="_Fermer"/>
+                    <Separator/>
+                    <!--<MenuItem Header="_Nouveau client" Command="{Binding NewContactCommand}"/>-->
+                        <Separator/>
+                    </MenuItem>
+                    <MenuItem Header="_Édition">
+                        <MenuItem Header="Couper..."/>
+                        <MenuItem Header="Copier"/>
+                        <MenuItem Header="Coller"/>
+                    </MenuItem>
+                    <MenuItem Header="Enregistrement">
+                    <!--<MenuItem Header="Nouveau" Command="{Binding NewContactCommand}"/>-->
+                </MenuItem>
+            </Menu>
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="+Contact" Command="{Binding NewContactCommand}">
+                    
+                </Button>
+                <ToolBar>
+                    <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
+                        <TextBlock Text="Recherche : "/>
+                        <TextBox x:Name="txtCriteria" HorizontalAlignment="Right" Width="150"/>
+                            <Button  Grid.Row="0" Grid.Column="1" Content="Recherche" 
+                    Command="{Binding SearchContactCommand}" 
+                    CommandParameter="{Binding ElementName=txtCriteria,Path=Text}" />
+                        </StackPanel>
+                </ToolBar>
+                </StackPanel>
             </StackPanel>
-            <ListView ItemsSource="{Binding Contacts}" SelectedItem="{Binding SelectedContact}" IsSynchronizedWithCurrentItem="True">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Info}"/>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </Grid>
+
+            <StatusBar DockPanel.Dock="Bottom" Height="25">
+                <TextBlock Text="Barre de statut " />
+            </StatusBar>
+            <Grid Grid.Row="0" Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <StackPanel Margin="6" Orientation="Horizontal" x:Name="spHeader">
+                    <TextBlock Text="Liste des clients" />
+                </StackPanel>
+                <ListView ItemsSource="{Binding Contacts}" SelectedItem="{Binding SelectedContact}" IsSynchronizedWithCurrentItem="True">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Info}"/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+    
+
+    
 
         <Grid>
 
@@ -62,5 +102,6 @@
             <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding SelectedContact.Mobile}"/>
             <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding SelectedContact.ContactID}"/>
         </Grid>
+    </DockPanel>
     </DockPanel>
 </Window>
