@@ -10,6 +10,7 @@ namespace wpf_demo_phonebook.ViewModels.Commands
     {
         readonly Action<object> _execute;
         readonly Predicate<object> _canExecute;
+        private RelayCommand searchAllContactCommand;
 
         public RelayCommand(Action<object> execute, Predicate<object> canExecute)
         {
@@ -24,6 +25,7 @@ namespace wpf_demo_phonebook.ViewModels.Commands
         {
 
         }
+
 
         public event EventHandler CanExecuteChanged
         {
