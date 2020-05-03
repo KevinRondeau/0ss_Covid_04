@@ -77,9 +77,11 @@ namespace wpf_demo_phonebook.ViewModels
             {
                 case "id":
                     SelectedContact = PhoneBookBusiness.GetContactByID(output);
+                   Contacts = new ObservableCollection<ContactModel>(PhoneBookBusiness.GetContactListByID(output));
                     break;
                 case "name":
                     SelectedContact = PhoneBookBusiness.GetContactByName(input);
+                    Contacts=new ObservableCollection<ContactModel>(PhoneBookBusiness.GetContactListByName(input));
                     break;
                 default:
                     MessageBox.Show("Unkonwn search method");

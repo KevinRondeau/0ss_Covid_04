@@ -29,6 +29,30 @@ namespace wpf_demo_phonebook
 
             return cm;
         }
+        public static IEnumerable<ContactModel> GetContactListByName(string _name)
+        {
+            ContactModel cm = null;
+
+            DataTable dt = dao.GetAllContact();
+
+            dt = dao.SearchByName(_name);
+            List<ContactModel> contactsList = new List<ContactModel> { };
+
+            if (dt != null)
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    cm = RowToContactModel(row);
+                    contactsList.Add(cm);
+                }
+            }
+
+            foreach (ContactModel c in contactsList)
+            {
+
+                yield return c;
+            }
+        }
 
         public static IEnumerable<ContactModel> GetAllContacts()
         {
@@ -46,8 +70,8 @@ namespace wpf_demo_phonebook
                 {
                     cm = RowToContactModel(row);
 
-                    //     Debug.WriteLine(cm.FirstName);   // Pour vérifier le contionement de la requete                
-                    contactsList.Add(cm);
+               //     Debug.WriteLine(cm.FirstName);   // Pour vérifier le contionement de la requete                
+                  contactsList.Add(cm); 
                 }
 
 
@@ -55,7 +79,7 @@ namespace wpf_demo_phonebook
 
             foreach (ContactModel c in contactsList)
             {
-
+        
                 yield return c;
             }
 
@@ -79,6 +103,33 @@ namespace wpf_demo_phonebook
             }
 
             return cm;
+        }
+
+        public static IEnumerable<ContactModel> GetContactListByID(int _id)
+        {
+            ContactModel cm = null;
+
+            DataTable dt = dao.GetAllContact();
+            List<ContactModel> contactsList = new List<ContactModel> { };
+
+            dt = dao.SearchByID(_id);
+
+            if (dt != null)
+            {
+             
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        cm = RowToContactModel(row);
+                        contactsList.Add(cm);
+                    }
+                foreach (ContactModel c in contactsList)
+                {
+
+                    yield return c;
+                }
+            }
+
+           
         }
 
         private static ContactModel RowToContactModel(DataRow row)
