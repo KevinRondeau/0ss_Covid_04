@@ -54,8 +54,9 @@ namespace wpf_demo_phonebook.ViewModels
             SaveContactCommand = new RelayCommand(UpdateContact);
             SearchContactCommand = new RelayCommand(SearchContact);
             DeleteContactCommand = new RelayCommand(DeleteContact);
-            SelectedContact = PhoneBookBusiness.GetContactByID(1);
+           
             GetAllContactsFromDataBase();
+            SelectedContact = Contacts.First();
         }
 
         private void GetAllContactsFromDataBase()
