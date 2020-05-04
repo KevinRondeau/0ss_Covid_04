@@ -24,8 +24,8 @@
                         <MenuItem Header="Coller"/>
                     </MenuItem>
                     <MenuItem Header="Enregistrement">
-                    <!--<MenuItem Header="Nouveau" Command="{Binding NewContactCommand}"/>-->
-                </MenuItem>
+                       <!-- <MenuItem Header="Nouveau" Command="{Binding NewContactCommand}"/>-->
+                    </MenuItem>
             </Menu>
                 <StackPanel Orientation="Horizontal">
                     <Button Content="+Contact" Command="{Binding NewContactCommand}">
@@ -101,7 +101,9 @@
             <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding SelectedContact.Phone}"/>
             <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding SelectedContact.Mobile}"/>
             <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding SelectedContact.ContactID}"/>
-        </Grid>
+            <Button Content="Enregistrer" Command="{Binding SaveContactCommand}" Grid.Row="8" Grid.Column="0"></Button>
+            <Button Content="Supprimer" Command="{Binding DeleteContactCommand}" Grid.Row="8" Grid.Column="1"></Button>
+            </Grid>
     </DockPanel>
     </DockPanel>
 </Window>

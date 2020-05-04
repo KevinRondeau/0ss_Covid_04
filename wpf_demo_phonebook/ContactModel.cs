@@ -7,6 +7,7 @@ namespace wpf_demo_phonebook
     public class ContactModel
     {
         public int ContactID { get; set; }
+
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }

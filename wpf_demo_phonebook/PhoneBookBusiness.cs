@@ -128,8 +128,24 @@ namespace wpf_demo_phonebook
                     yield return c;
                 }
             }
-
+            
            
+        }
+
+       public static void UpdateByID(int _id)
+        {
+
+            ContactModel c = GetContactByID(_id);
+            DataTable dt = dao.GetAllContact();
+            if (c != null)
+            {
+                dt = dao.UpdateByID(_id, c.FirstName, c.LastName, c.Email, c.Phone, c.Mobile);
+            }
+            else
+            {
+                //dt = dao.AddContact(c.FirstName, c.LastName, c.Email, c.Phone, c.Mobile);
+            }
+
         }
 
         private static ContactModel RowToContactModel(DataRow row)
