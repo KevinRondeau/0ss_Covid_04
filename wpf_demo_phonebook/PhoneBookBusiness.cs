@@ -133,19 +133,19 @@ namespace wpf_demo_phonebook
         }
         public static int InsertContact(ContactModel cm)
         {
-            int add;
-
+            int _id;
+            
             dao.Insert(cm);
-            add = dao.LastID();
+            _id = dao.LastID();
            
-            return add;
+            return _id;
         }
         public static int UpdateContact(ContactModel cm)
         {
             int updates;
             int _id = cm.ContactID;
             updates = dao.Update(cm, _id);
-           // GetAllContacts();
+           
             return updates;
         }
 

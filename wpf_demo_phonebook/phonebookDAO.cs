@@ -76,10 +76,10 @@ namespace wpf_demo_phonebook
 
         public int Insert(ContactModel cm)
         {
-            string _query = $"INSERT INTO [Contacts] " +
-                             $"(FirstName, LastName, Email, Phone, Mobile) " +
-                            $"OUTPUT INSERTED.ContactID " +
-                            $"VALUES ('{cm.FirstName}','{cm.LastName}','{cm.Email}','{cm.Phone}','{cm.Mobile}')";
+            string _query =$"INSERT INTO [Contacts]" +
+                           $" (FirstName, LastName, Email, Phone, Mobile) " +
+                           $"OUTPUT INSERTED.ContactID " +
+                           $"VALUES ('{cm.FirstName}','{cm.LastName}','{cm.Email}','{cm.Phone}','{cm.Mobile}')";
 
             return conn.ExecutInsertQuery(_query, null);
         }
@@ -95,6 +95,8 @@ namespace wpf_demo_phonebook
 
             conn.ExecuteSelectQuery(_querry, parameters);
         }
+
+
         public DataTable GetAllContact()
         {
 
@@ -106,6 +108,8 @@ namespace wpf_demo_phonebook
 
             return conn.ExecuteSelectQuery(_querry, parameters);
         }
+
+
         public int LastID()
         {
             string _query = $"SELECT max(ContactID) " +
@@ -113,5 +117,6 @@ namespace wpf_demo_phonebook
 
             return conn.ExecuteSelectQuery(_query, null).Rows[0].Field<int>(0);
         }
+
     }
 }

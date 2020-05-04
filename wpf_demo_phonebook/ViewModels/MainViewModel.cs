@@ -31,7 +31,7 @@ namespace wpf_demo_phonebook.ViewModels
                 OnPropertyChanged();
             }
         }
-
+       
         private string criteria;
 
         public string Criteria
@@ -55,7 +55,7 @@ namespace wpf_demo_phonebook.ViewModels
             SearchContactCommand = new RelayCommand(SearchContact);
             DeleteContactCommand = new RelayCommand(DeleteContact);
             SelectedContact = PhoneBookBusiness.GetContactByID(1);
-            GetAllContactsFromDataBase(); //Init Value sur les autres travaille
+            GetAllContactsFromDataBase();
         }
 
         private void GetAllContactsFromDataBase()
@@ -96,32 +96,35 @@ namespace wpf_demo_phonebook.ViewModels
 
         private void NewContact(object c)
         {
+            
             ContactModel contact = new ContactModel();
-
             SelectedContact = contact;
-
-           
+             
         }
 
 
         private void DeleteContact(object parameter)
         {
-            string input = parameter as string;
+            MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Voulez-vous vraiment supprimer?", "Confirmation", System.Windows.MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                string input = parameter as string;
 
-            int output;
-            Int32.TryParse(input, out output);
+                int output;
+                Int32.TryParse(input, out output);
 
-            PhoneBookBusiness.Delete(output);
+                PhoneBookBusiness.Delete(output);
 
-            GetAllContactsFromDataBase();
+                GetAllContactsFromDataBase();
+            }
         }
 
         private void UpdateContact(object c)
         {
-            
+
             if (selectedContact.ContactID != 0)
             {
-               PhoneBookBusiness.UpdateContact(SelectedContact);
+                int modif = PhoneBookBusiness.UpdateContact(SelectedContact);
             }
             else
             {
@@ -134,8 +137,7 @@ namespace wpf_demo_phonebook.ViewModels
                     SelectedContact = Contacts.Last<ContactModel>();
                 }
             }
-           contacts = new ObservableCollection<ContactModel>(PhoneBookBusiness.GetAllContacts());
-           GetAllContactsFromDataBase();
+            GetAllContactsFromDataBase();
         }
 
 
