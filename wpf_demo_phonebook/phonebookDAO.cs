@@ -74,6 +74,27 @@ namespace wpf_demo_phonebook
             return conn.ExecutUpdateQuery(_query, parameters);
         }
 
+        public int Insert(ContactModel cm)
+        {
+            string _query = $"INSERT INTO [Contacts] " +
+                             $"(FirstName, LastName, Email, Phone, Mobile) " +
+                            $"OUTPUT INSERTED.ContactID " +
+                            $"VALUES ('{cm.FirstName}','{cm.LastName}','{cm.Email}','{cm.Phone}','{cm.Mobile}')";
+
+            return conn.ExecutInsertQuery(_query, null);
+        }
+
+        public void Delete(int _id)
+        {
+            string _querry =
+                $"DELETE FROM [Contacts] WHERE ContactID = @_id";
+
+            SqlParameter[] parameters = new SqlParameter[1];
+            parameters[0] = new SqlParameter("@_id", SqlDbType.Int);
+            parameters[0].Value = _id;
+
+            conn.ExecuteSelectQuery(_querry, parameters);
+        }
         public DataTable GetAllContact()
         {
 
@@ -84,6 +105,13 @@ namespace wpf_demo_phonebook
             parameters = null;
 
             return conn.ExecuteSelectQuery(_querry, parameters);
+        }
+        public int LastID()
+        {
+            string _query = $"SELECT max(ContactID) " +
+                            $"FROM [Contacts] ";
+
+            return conn.ExecuteSelectQuery(_query, null).Rows[0].Field<int>(0);
         }
     }
 }

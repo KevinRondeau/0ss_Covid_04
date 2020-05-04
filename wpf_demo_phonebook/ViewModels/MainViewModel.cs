@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 using wpf_demo_phonebook.ViewModels.Commands;
 
@@ -46,11 +47,13 @@ namespace wpf_demo_phonebook.ViewModels
         public RelayCommand SearchContactCommand { get; set; }
         public RelayCommand NewContactCommand { get; set; }
         public RelayCommand SaveContactCommand { get; set; }
+        public RelayCommand DeleteContactCommand { get; set; }
         public MainViewModel()
         {
             NewContactCommand = new RelayCommand(NewContact);
             SaveContactCommand = new RelayCommand(UpdateContact);
             SearchContactCommand = new RelayCommand(SearchContact);
+            DeleteContactCommand = new RelayCommand(DeleteContact);
             SelectedContact = PhoneBookBusiness.GetContactByID(1);
             GetAllContactsFromDataBase(); //Init Value sur les autres travaille
         }
@@ -96,15 +99,43 @@ namespace wpf_demo_phonebook.ViewModels
             ContactModel contact = new ContactModel();
 
             SelectedContact = contact;
+
+           
         }
 
 
+        private void DeleteContact(object parameter)
+        {
+            string input = parameter as string;
 
+            int output;
+            Int32.TryParse(input, out output);
+
+            PhoneBookBusiness.Delete(output);
+
+            GetAllContactsFromDataBase();
+        }
 
         private void UpdateContact(object c)
         {
-            int update = PhoneBookBusiness.UpdateContact(SelectedContact);
-            contacts= new ObservableCollection<ContactModel>(PhoneBookBusiness.GetAllContacts());
+            
+            if (selectedContact.ContactID != 0)
+            {
+               PhoneBookBusiness.UpdateContact(SelectedContact);
+            }
+            else
+            {
+                int generatedNewId = PhoneBookBusiness.InsertContact(selectedContact);
+                if (generatedNewId > 0)
+                {
+                    SelectedContact.ContactID = generatedNewId;
+                    Contacts.Add(SelectedContact);
+
+                    SelectedContact = Contacts.Last<ContactModel>();
+                }
+            }
+           contacts = new ObservableCollection<ContactModel>(PhoneBookBusiness.GetAllContacts());
+           GetAllContactsFromDataBase();
         }
 
 

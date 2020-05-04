@@ -100,9 +100,9 @@
             <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding SelectedContact.Email}"/>
             <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding SelectedContact.Phone}"/>
             <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding SelectedContact.Mobile}"/>
-            <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding SelectedContact.ContactID}"/>
+                <TextBox Grid.Row="7" Grid.Column="1" x:Name="txtID" Text="{Binding SelectedContact.ContactID}"/>
             <Button Content="Enregistrer" Command="{Binding SaveContactCommand}" Grid.Row="8" Grid.Column="0"></Button>
-            <Button Content="Supprimer" Command="{Binding DeleteContactCommand}" Grid.Row="8" Grid.Column="1"></Button>
+                <Button Content="Supprimer" Command="{Binding DeleteContactCommand}" Grid.Row="8" Grid.Column="1" CommandParameter="{Binding ElementName=txtID,Path=Text}"/> 
             </Grid>
     </DockPanel>
     </DockPanel>
