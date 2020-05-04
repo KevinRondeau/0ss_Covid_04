@@ -132,20 +132,16 @@ namespace wpf_demo_phonebook
            
         }
 
-       public static void UpdateByID(int _id)
+        public static int UpdateContact(ContactModel cm)
         {
-
-            ContactModel c = GetContactByID(_id);
-            DataTable dt = dao.GetAllContact();
-            if (c != null)
+            int updates;
+            if (cm != null)
             {
-                dt = dao.UpdateByID(_id, c.FirstName, c.LastName, c.Email, c.Phone, c.Mobile);
-            }
-            else
-            {
-                //dt = dao.AddContact(c.FirstName, c.LastName, c.Email, c.Phone, c.Mobile);
+                int _id = cm.ContactID;
+                updates = dao.Update(cm, _id);
             }
 
+            return updates;
         }
 
         private static ContactModel RowToContactModel(DataRow row)

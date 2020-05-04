@@ -49,7 +49,7 @@ namespace wpf_demo_phonebook.ViewModels
         public MainViewModel()
         {
             NewContactCommand = new RelayCommand(NewContact);
-            SaveContactCommand = new RelayCommand(SaveContact);
+            SaveContactCommand = new RelayCommand(UpdateContact);
             SearchContactCommand = new RelayCommand(SearchContact);
             SelectedContact = PhoneBookBusiness.GetContactByID(1);
             GetAllContactsFromDataBase(); //Init Value sur les autres travaille
@@ -99,11 +99,12 @@ namespace wpf_demo_phonebook.ViewModels
         }
 
 
-        
 
-        private void SaveContact(object c)
+
+        private void UpdateContact(object c)
         {
-            PhoneBookBusiness.UpdateByID(SelectedContact.ContactID);
+            int update = PhoneBookBusiness.UpdateContact(SelectedContact);
+            contacts= new ObservableCollection<ContactModel>(PhoneBookBusiness.GetAllContacts());
         }
 
 

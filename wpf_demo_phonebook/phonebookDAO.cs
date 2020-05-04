@@ -57,28 +57,21 @@ namespace wpf_demo_phonebook
             return conn.ExecuteSelectQuery(_query, parameters);
         }
 
-        public DataTable UpdateByID(int _id,string _name,string _lastname,string _email, string _phone,string _mobile )
+        public int Update(ContactModel cm, int _id)
         {
-            string _query =
-                $"UPDATE Contacts " +
-                $"SET FirstName=@_name,LastName=@_lastname,Email=@_email,Phone=@_phone,Mobile=@_mobile" +
-                $"WHERE ContactID = @_id ";
+            string _query = $"UPDATE Contacts " +
+                            $"SET FirstName = '{cm.FirstName}', " +
+                            $"LastName = '{cm.LastName}'," +
+                            $"Email = '{cm.Email}'," +
+                            $"Phone = '{cm.Phone}'," +
+                            $"Mobile = '{cm.Mobile}'" +
+                            $"WHERE ContactID = @_id";
 
-            SqlParameter[] parameters = new SqlParameter[6];
+            SqlParameter[] parameters = new SqlParameter[1];
             parameters[0] = new SqlParameter("@_id", SqlDbType.Int);
             parameters[0].Value = _id;
-            parameters[1] = new SqlParameter("@_name", SqlDbType.NVarChar);
-            parameters[1].Value = _name;
-            parameters[2] = new SqlParameter("@_lastname", SqlDbType.NVarChar);
-            parameters[2].Value = _lastname;
-            parameters[3] = new SqlParameter("@_email", SqlDbType.NVarChar);
-            parameters[3].Value = _email;
-            parameters[4] = new SqlParameter("@_phone", SqlDbType.NVarChar);
-            parameters[4].Value = _phone;
-            parameters[5] = new SqlParameter("@_mobile", SqlDbType.NVarChar);
-            parameters[5].Value = _mobile;
-
-            return conn.ExecuteSelectQuery(_query, parameters);
+            
+            return conn.ExecutUpdateQuery(_query, parameters);
         }
 
         public DataTable GetAllContact()
